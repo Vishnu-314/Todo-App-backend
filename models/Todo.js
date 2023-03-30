@@ -21,6 +21,14 @@ const NotesSchema=new Schema({
     date:{
         type:Date,
         default:Date.now
+    },
+    duedate: {
+      type: String
+    },
+    priority: {
+      type: String,
+      enum: ['High', 'Medium', 'Low'],
+      default: 'Medium'
     }
 })
 

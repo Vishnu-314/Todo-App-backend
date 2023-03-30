@@ -20,13 +20,13 @@ router.post('/addtodos', fetchUser, [
 ], async (req, res) => {
 
     try {
-        const { title, description, tag } = req.body;
+        const { title, description, tag,duedate,priority } = req.body;
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() })
         }
         const todo = new Todo({
-            title, description, tag, user: req.user.id
+            title, description, tag,duedate,priority, user: req.user.id
         })
         const savedTodo = await todo.save()
 
@@ -41,12 +41,14 @@ router.post('/addtodos', fetchUser, [
 
 
 router.put('/updatetodo/:id', fetchUser, async (req, res) => {
-    const { title, description, tag } = req.body;
+    const { title, description, tag ,duedate,priority} = req.body;
     try {
         const newTodo = {};
         if (title) { newTodo.title = title };
         if (title) { newTodo.description = description };
         if (title) { newTodo.tag = tag };
+        if (title) { newTodo.duedate = duedate };
+        if (title) { newTodo.priority = priority };
 
 
         let todo = await Todo.findById(req.params.id);
